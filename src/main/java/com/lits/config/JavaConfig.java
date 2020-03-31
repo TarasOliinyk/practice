@@ -1,10 +1,7 @@
 package com.lits.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -21,32 +18,22 @@ public class JavaConfig {
     @Value("${className}")
     private String className;
 
-    @Value("${username}")
-    private String username;
+    @Value("${dbUsername}")
+    private String dbUsername;
 
-    @Value("${password}")
-    private String password;
+    @Value("${dbPassword}")
+    private String dbPassword;
 
     @Value("${dbURL}")
     private String dbURL;
 
-//    @Bean
-//    public DataSource dataSource() {
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(className);
-//        dataSource.setUsername(username);
-//        dataSource.setPassword(password);
-//        dataSource.setUrl(dbURL);
-//        return dataSource;
-//    }
-
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUsername("root");
-        dataSource.setPassword("Mypass@123");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/new_practice");
+        dataSource.setDriverClassName(className);
+        dataSource.setUsername(dbUsername);
+        dataSource.setPassword(dbPassword);
+        dataSource.setUrl(dbURL);
         return dataSource;
     }
 
@@ -59,6 +46,8 @@ public class JavaConfig {
         em.setJpaVendorAdapter(vendorAdapter);
         Properties props=new Properties();
         props.put("hibernate.hbm2ddl.auto", "update");
+        props.put("hibernate.show_sql", "true");
+        props.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         em.setJpaProperties(props);
         return em;
     }

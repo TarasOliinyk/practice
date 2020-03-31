@@ -5,8 +5,19 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Teacher {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column
+    private String firstName;
+
+    @Column
+    private String lastName;
+
+    public Teacher() {
+    }
 
     public int getId() {
         return id;
@@ -30,11 +41,5 @@ public class Teacher {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    private String firstName;
-    private String lastName;
-
-    public Teacher() {
     }
 }
