@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(JavaConfig.class);
         Teacher teacher = new Teacher();
-        teacher.setFirstName("Nick");
-        teacher.setLastName("Brown");
+        teacher.setFirstName("Nicolas");
+        teacher.setLastName("Cage");
         TeacherService teacherService = context.getBean(TeacherService.class);
         teacherService.add(teacher);
     }
