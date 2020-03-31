@@ -1,6 +1,10 @@
 package com.lits.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.sql.DataSource;
 
@@ -11,9 +15,9 @@ public class JavaConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUsername("mysqluser");
-        dataSource.setPassword("mysqlpass");
-        dataSource.setUrl( "jdbc:mysql://localhost:3306/myDb?createDatabaseIfNotExist=true");
+        dataSource.setUsername("root");
+        dataSource.setPassword("Mypass@123");
+        dataSource.setUrl( "jdbc:mysql://localhost:3306/new_practice");
         return dataSource;
     }
 
@@ -21,10 +25,9 @@ public class JavaConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.baeldung.persistence.model" });
+        em.setPackagesToScan("com.baeldung.persistence.model");
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties());
         return em;
     }
 }
