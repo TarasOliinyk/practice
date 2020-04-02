@@ -3,21 +3,15 @@ package com.lits.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManager;
 import javax.sql.DataSource;
-import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
 @ComponentScan("com.lits")
-@EnableTransactionManagement
 @PropertySource("application.properties")
 public class JavaConfig {
 
@@ -56,18 +50,5 @@ public class JavaConfig {
         props.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         em.setJpaProperties(props);
         return em;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        var transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-        transactionManager.setDataSource(dataSource());
-        return transactionManager;
-    }
-
-    @Bean
-    public EntityManager entityManager() {
-        return Objects.requireNonNull(entityManagerFactory().getObject()).createEntityManager();
     }
 }
