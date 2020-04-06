@@ -63,7 +63,6 @@ public class Teacher {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", courses=" + courses +
                 '}';
     }
 
@@ -74,8 +73,7 @@ public class Teacher {
         Teacher teacher = (Teacher) o;
         return id.equals(teacher.id) &&
                 Objects.equals(firstName, teacher.firstName) &&
-                Objects.equals(lastName, teacher.lastName) &&
-                Objects.equals(courses, teacher.courses);
+                Objects.equals(lastName, teacher.lastName);
     }
 
     @Override
