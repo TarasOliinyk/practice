@@ -30,7 +30,7 @@ public class CourseService {
      * @param courseId - Specifies id of the course intended to be retrieved
      * @return {@code Course}
      */
-    public Course getCourse(int courseId) {
+    public Course getCourse(Integer courseId) {
         return entityManager.find(Course.class, courseId);
     }
 
@@ -39,8 +39,14 @@ public class CourseService {
      *
      * @return {@code List<Course>}
      */
+    @SuppressWarnings("unchecked")
     public List<Course> getAllCourses() {
         return entityManager.createQuery("SELECT c FROM Course c").getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Course> getAllCoursesWithoutAssignedTeacher() {
+        return entityManager.createQuery("SELECT c FROM Course c WHERE c.teacher = null").getResultList();
     }
 
     /**
@@ -60,7 +66,7 @@ public class CourseService {
      * @param courseId - Specifies id of the course intended to be deleted
      */
     @Transactional
-    public void deleteCourse(int courseId) {
+    public void deleteCourse(Integer courseId) {
         entityManager.remove(entityManager.find(Course.class, courseId));
     }
 }
